@@ -229,7 +229,8 @@ def reconstruir(proyecto=None):
         "muestra_variables": "SELECT * FROM `{project}.movilidad_urbana.features_demanda` WHERE zona_id IN (132,161,237) AND hora >= TIMESTAMP('2022-02-28') AND hora < TIMESTAMP('2022-03-02') ORDER BY zona_id,hora",
         "coeficientes": "SELECT * FROM ML.WEIGHTS(MODEL `{project}.movilidad_urbana.modelo_demanda`, STRUCT(TRUE AS standardize))",
         "entrenamiento": "SELECT * FROM ML.TRAINING_INFO(MODEL `{project}.movilidad_urbana.modelo_demanda`)",
-        "errores_zona": "SELECT zona_id,COUNT(*) filas,SUM(viajes) viajes,AVG(ABS(viajes-predicted_viajes)) mae,SQRT(AVG(POW(viajes-predicted_viajes,2))) rmse FROM `{project}.movilidad_urbana.predicciones` GROUP BY zona_id",
+        "errores_zona": "SELECT zona_id,COUNT(*) filas,SUM(viajes) viajes,AVG(ABS(viajes-predicted_viajes)) mae,SQRT(AVG(POW(viajes-predicted_viajes,2))) rmse,SAFE_DIVIDE(SUM(ABS(viajes-predicted_viajes)),SUM(viajes))*100 wape FROM `{project}.movilidad_urbana.predicciones` GROUP BY zona_id",
+        "almacenamiento": "SELECT table_id tabla,row_count filas,size_bytes bytes_tabla FROM `{project}.movilidad_urbana.__TABLES__`",
     }
     resultados = {"procedencia": {"proyecto": proyecto, "dataset": "movilidad_urbana",
                                  "periodo": "2022-01-01 / 2022-03-31"}, "ejecuciones": ejecuciones}

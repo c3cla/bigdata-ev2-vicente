@@ -11431,6 +11431,63 @@
       "error": null
     }
   ],
+  "almacenamiento": [
+    {
+      "tabla": "bronze_viajes",
+      "filas": 9071242,
+      "bytes_tabla": 1874033402
+    },
+    {
+      "tabla": "control_calidad",
+      "filas": 1,
+      "bytes_tabla": 64
+    },
+    {
+      "tabla": "eda_diario",
+      "filas": 90,
+      "bytes_tabla": 1440
+    },
+    {
+      "tabla": "eda_horario",
+      "filas": 168,
+      "bytes_tabla": 4032
+    },
+    {
+      "tabla": "eda_zonas",
+      "filas": 263,
+      "bytes_tabla": 4208
+    },
+    {
+      "tabla": "features_demanda",
+      "filas": 523896,
+      "bytes_tabla": 45534768
+    },
+    {
+      "tabla": "gold_demanda",
+      "filas": 568080,
+      "bytes_tabla": 13633920
+    },
+    {
+      "tabla": "metricas",
+      "filas": 4,
+      "bytes_tabla": 262
+    },
+    {
+      "tabla": "modelo_demanda",
+      "filas": 9,
+      "bytes_tabla": 48555
+    },
+    {
+      "tabla": "predicciones",
+      "filas": 195672,
+      "bytes_tabla": 10957632
+    },
+    {
+      "tabla": "silver_viajes",
+      "filas": 8958864,
+      "bytes_tabla": 499538880
+    }
+  ],
   "procedencia": {
     "autor": "Vicente Yagello",
     "proyecto": "round-pen-449819-s1",
@@ -11440,5 +11497,101 @@
     "origen": "bigquery-public-data.new_york_taxi_trips.tlc_yellow_trips_2022",
     "respaldo": "Grilla Gold conciliada con el experimento cloud y verificada por las huellas de sus 263 zonas.",
     "diferencia_fuente": "Los Parquet oficiales actuales contienen dos viajes adicionales frente a la copia BigQuery: zona 90, 2022-03-01 00:00; zona 138, 2022-02-01 00:00. El respaldo conserva los conteos del experimento BigQuery."
+  },
+  "auditoria": {
+    "bitacora_cloud": [
+      {
+        "fecha_hora_local": "2026-10-18T21:14:19.619000-03:00",
+        "actividad": "Ingesta inicial",
+        "job_id": "job_vQDzzrB_gPPoG8M2SqJCT2hXmZr6",
+        "resultado": "Finalizado sin error",
+        "detalle_error": null
+      },
+      {
+        "fecha_hora_local": "2026-10-18T21:15:18.587000-03:00",
+        "actividad": "Primeras transformaciones",
+        "job_id": "job_YnKd3wuns_41WgRGLjtT-WygWbVH",
+        "resultado": "Finalizado sin error",
+        "detalle_error": null
+      },
+      {
+        "fecha_hora_local": "2026-10-18T21:16:28.956000-03:00",
+        "actividad": "Entrenamiento fallido: sin filas",
+        "job_id": "job_V3RJ9RFKw-WBW-pqXLjUTN4woP7p",
+        "resultado": "Error registrado",
+        "detalle_error": "Query error: Input data doesn't contain any rows. at [1:1]"
+      },
+      {
+        "fecha_hora_local": "2026-10-18T21:20:33.366000-03:00",
+        "actividad": "Reconstrucción con rangos enteros",
+        "job_id": "job_WfmBy1YJaZXc-JMkkKo8h-RW7bj2",
+        "resultado": "Finalizado sin error",
+        "detalle_error": null
+      },
+      {
+        "fecha_hora_local": "2026-10-18T21:21:09.639000-03:00",
+        "actividad": "Modelo y métricas correctos",
+        "job_id": "job_lL6oRnAo62tXxyJxVeEp9NbJBZl2",
+        "resultado": "Finalizado sin error",
+        "detalle_error": null
+      },
+      {
+        "fecha_hora_local": "2026-10-18T21:22:11.380000-03:00",
+        "actividad": "Cinco controles SQL",
+        "job_id": "job_M7nz1OdK7f1PMx6aTCxekZSWlfeH",
+        "resultado": "Finalizado sin error",
+        "detalle_error": null
+      },
+      {
+        "fecha_hora_local": "2026-10-18T21:24:23.827000-03:00",
+        "actividad": "Metadatos sin permiso",
+        "job_id": "job_0ksfV0eUFMdEppeC8RI7sEIuMBl8",
+        "resultado": "Error registrado",
+        "detalle_error": "Access Denied: Table round-pen-449819-s1:region-us.INFORMATION_SCHEMA.TABLE_STORAGE: User does not have permission to query table round-pen-449819-s1:region-us.INFORMATION_SCHEMA.TABLE_STORAGE, or perhaps it does not exist."
+      },
+      {
+        "fecha_hora_local": "2026-10-18T21:25:30.419000-03:00",
+        "actividad": "Exportación analítica",
+        "job_id": "job_-goNz7pKOg-vh5qKK8i8093S1bh6",
+        "resultado": "Finalizado sin error",
+        "detalle_error": null
+      }
+    ],
+    "diagnostico_volumen": [
+      {
+        "grupo": "Q1 menor volumen",
+        "zonas": 66,
+        "viajes": 1195,
+        "mae": 0.43103399293357203,
+        "rmse": 0.6836601829805661,
+        "wape": 1771.170978159843
+      },
+      {
+        "grupo": "Q2",
+        "zonas": 66,
+        "viajes": 6608,
+        "mae": 0.49695886911979825,
+        "rmse": 0.7917383608636658,
+        "wape": 369.28977465585007
+      },
+      {
+        "grupo": "Q3",
+        "zonas": 65,
+        "viajes": 34385,
+        "mae": 0.8383787381519161,
+        "rmse": 1.3339471391431426,
+        "wape": 117.91186789887061
+      },
+      {
+        "grupo": "Q4 mayor volumen",
+        "zonas": 66,
+        "viajes": 3538473,
+        "mae": 11.400850338671175,
+        "rmse": 19.506998274362953,
+        "wape": 15.821156612756672
+      }
+    ],
+    "zonas_sin_viajes_prueba": 8,
+    "criterio_grupos": "Cuartiles del volumen de marzo, orden estable por filas ante empates; diagnóstico retrospectivo, no selección de variables ni ajuste del modelo."
   }
 }
